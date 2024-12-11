@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PublishAot>False</PublishAot>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyName>$(MSBuildProjectName.ToLower())</AssemblyName>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>none</DebugType>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.68.0" />
+    <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3601" />
+    <PackageReference Include="Google.Apis.DriveActivity.v2" Version="1.68.0.3106" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+	<Target Name="CopyStartWindows" AfterTargets="Build" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<Copy SourceFiles="Start_windows.bat" DestinationFiles="$(PublishDir)Start.bat" />
+	</Target>
+
+	<Target Name="CopyStartLinux" AfterTargets="Build" Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+		<Copy SourceFiles="Start_linux.sh" DestinationFiles="$(PublishDir)Start.sh" />
+	</Target>
+
+</Project>

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MCBackupSync": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\Documentos\\Documentos\\info.txt\""
+    }
+  }
+}
